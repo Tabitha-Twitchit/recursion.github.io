@@ -4,21 +4,63 @@
 // denoted by n!, is the product of all positive integers less than or equal to n.
 // Example:  5! = 5 x 4 x 3 x 2 x 1 = 120
 // factorial(5);  // 120
-var factorial = function(n) {
+var factorial = function(n, product=1) {
+  // base
+  if(n < 0 ){
+    return null;
+  }
+  if(n === 0){
+    return product;
+  }
+  // recursion
+  product = product * n; //can we just say *=?
+  
+  return factorial(n - 1, product);
 };
 
 // 2. Compute the sum of an array of integers.
-// Example:  sum([1, 2, 3, 4, 5, 6]);  // 21
-var sum = function(array) {
-};
+// I an array of numbers
+// O the sum of all items in the array
+// 
+// We want to start with a base so it makes sense to assign our 
+// sum to the value of the 0 index of the array.
 
+// But actually if we start at the end we can check against 0 (that 
+// decrement one, and apply function to the approach.)
+
+
+// Example:  sum([1, 2, 3, 4, 5, 6]);  // 21
+var sum = function(array, newSum=0) {
+  // base
+  // checks when no more entries are available to add and returns the sum. 
+  if(array.length === 0){
+    return newSum;
+  }
+  // recursion
+  newSum += array[0];
+  // console.log("This is newSum: " + newSum);
+// re-call and slice the array. NOTE: you must also pass in the newSum for it to be cumulative
+// otherwise it will simply reassign with each call.
+// this works by slicing an element off the array (weak copy of the array) each time, that's what
+// increments.
+  return sum(array.slice(1), newSum);
+};
+// console.log(sum(3));
+
+// THIS PROBLEM IS SKIPPABLE!!!!!!!!!!!!!!
 // 3. Sum all numbers in an array containing nested arrays.
 // Example: arraySum([1,[2,3],[[4]],5]); // 15
-var arraySum = function(array) {
-};
+// var arraySum = function(array) {
+// };
 
 // 4. Check if a number is even.
-var isEven = function(n) {
+var isEven = function(n, defParam=0) {
+  // base 
+  if(){
+
+  }
+  // recursion
+  
 };
 
 // 5. Sum all integers below a given integer.
@@ -55,13 +97,14 @@ var reverse = function(string) {
 var palindrome = function(string) {
 };
 
+// THIS PROBLEM IS SKIPPABLE!!!!!!!!!!!!!!
 // 11. Write a function that returns the remainder of x divided by y without using the
 // modulo (%) operator.
 // modulo(5,2) // 1
 // modulo(17,5) // 2
 // modulo(22,6) // 4
-var modulo = function(x, y) {
-};
+// var modulo = function(x, y) {
+// };
 
 // 12. Write a function that multiplies two numbers without using the * operator  or
 // JavaScript's Math object.
@@ -69,18 +112,20 @@ var modulo = function(x, y) {
 var multiply = function(x, y) {
 };
 
+// THIS PROBLEM IS SKIPPABLE!!!!!!!!!!!!!!
 // 13. Write a function that divides two numbers without using the / operator  or
 // JavaScript's Math object.
-var divide = function(x, y) {
-};
+// var divide = function(x, y) {
+// };
 
+// THIS PROBLEM IS SKIPPABLE!!!!!!!!!!!!!!
 // 14. Find the greatest common divisor (gcd) of two positive numbers.  The GCD of two
 // integers is the greatest integer that divides both x and y with no remainder.
 // Example:  gcd(4,36);  // 4
 // http://www.cse.wustl.edu/~kjg/cse131/Notes/Recursion/recursion.html
 // https://www.khanacademy.org/computing/computer-science/cryptography/modarithmetic/a/the-euclidean-algorithm
-var gcd = function(x, y) {
-};
+// var gcd = function(x, y) {
+// };
 
 // 15. Write a function that compares each character of two strings and returns true if
 // both are identical.
@@ -116,32 +161,36 @@ var countOccurrence = function(array, value) {
 var rMap = function(array, callback) {
 };
 
+// THIS PROBLEM IS SKIPPABLE!!!!!!!!!!!!!!
 // 21. Write a function that counts the number of times a key occurs in an object.
 // var testobj = {'e': {'x':'y'}, 't':{'r': {'e':'r'}, 'p': {'y':'r'}},'y':'e'};
 // countKeysInObj(testobj, 'r') // 1
 // countKeysInObj(testobj, 'e') // 2
-var countKeysInObj = function(obj, key) {
-};
+// var countKeysInObj = function(obj, key) {
+// };
 
+// THIS PROBLEM IS SKIPPABLE!!!!!!!!!!!!!!
 // 22. Write a function that counts the number of times a value occurs in an object.
 // var testobj = {'e': {'x':'y'}, 't':{'r': {'e':'r'}, 'p': {'y':'r'}},'y':'e'};
 // countValuesInObj(testobj, 'r') // 2
 // countValuesInObj(testobj, 'e') // 1
-var countValuesInObj = function(obj, value) {
-};
+// var countValuesInObj = function(obj, value) {
+// };
 
+// THIS PROBLEM IS SKIPPABLE!!!!!!!!!!!!!!
 // 23. Find all keys in an object (and nested objects) by a provided name and rename
 // them to a provided new name while preserving the value stored at that key.
-var replaceKeysInObj = function(obj, key, newKey) {
-};
+// var replaceKeysInObj = function(obj, key, newKey) {
+// };
 
+// THIS PROBLEM IS SKIPPABLE!!!!!!!!!!!!!!
 // 24. Get the first n Fibonacci numbers.  In the Fibonacci Sequence, each subsequent
 // number is the sum of the previous two.
 // Example:  0, 1, 1, 2, 3, 5, 8, 13, 21, 34.....
 // fibonacci(5);  // [0, 1, 1, 2, 3, 5]
 // Note:  The 0 is not counted.
-var fibonacci = function(n) {
-};
+// var fibonacci = function(n) {
+// };
 
 // 25. Return the Fibonacci number located at index n of the Fibonacci sequence.
 // [0,1,1,2,3,5,8,13,21]
@@ -162,6 +211,7 @@ var capitalizeWords = function(input) {
 var capitalizeFirst = function(array) {
 };
 
+// THIS PROBLEM IS SKIPPABLE!!!!!!!!!!!!!!
 // 28. Return the sum of all even numbers in an object containing nested objects.
 // var obj1 = {
 //   a: 2,
@@ -171,13 +221,14 @@ var capitalizeFirst = function(array) {
 //   e: {e: {e: 2}, ee: 'car'}
 // };
 // nestedEvenSum(obj1); // 10
-var nestedEvenSum = function(obj) {
-};
+// var nestedEvenSum = function(obj) {
+// };
 
+// THIS PROBLEM IS SKIPPABLE!!!!!!!!!!!!!!
 // 29. Flatten an array containing nested arrays.
 // Example: flatten([1,[2],[3,[[4]]],5]); // [1,2,3,4,5]
-var flatten = function(arrays) {
-};
+// var flatten = function(arrays) {
+// };
 
 // 30. Given a string, return an object containing tallies of each letter.
 // letterTally('potato'); // {'p':1, 'o':2, 't':2, 'a':1}
@@ -192,11 +243,12 @@ var letterTally = function(str, obj) {
 var compress = function(list) {
 };
 
+// THIS PROBLEM IS SKIPPABLE!!!!!!!!!!!!!!
 // 32. Augment every element in a list with a new value where each element is an array
 // itself.
 // Example: augmentElements([[],[3],[7]], 5); // [[5],[3,5],[7,5]]
-var augmentElements = function(array, aug) {
-};
+// var augmentElements = function(array, aug) {
+// };
 
 // 33. Reduce a series of zeroes to a single 0.
 // minimizeZeroes([2,0,0,0,1,4]) // [2,0,1,4]
