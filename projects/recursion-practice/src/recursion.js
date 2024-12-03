@@ -54,46 +54,26 @@ var sum = function(array, newSum=0) {
 // };
 
 // 4. Check if a number is even.
-var isEven = function(n){
-  // base
-
-  if (n === 1){
+var isEven = function(n) {
+  // base 
+  if(n === 1){
     return false;
   } else if (n === 0){
     return true;
   }
-  // recursion, we need logic here to vary our approach for positive and negative numbers
+
+  // recursion
   if(n > 0){
-    return isEven(n-2);
+    return isEven(n - 2);
   } else if (n < 0){
-    return isEven(n+2);
+    return isEven(n + 2);
   }
-};
+}; 
 
 // 5. Sum all integers below a given integer.
 // sumBelow(10); // 45
 // sumBelow(7); // 21
-// I an integer
-// O an integer
-// C It seems to ask for the sum non-inclusive of n
-// E 0 and -1 are the edge cases
-
-var sumBelow = function(n, sum) {
-//  we receive 10, 0, -1, 10
-  console.log(n); 
-  // base
-if(n === 0){
-  return sum;
-}
-  // recursion
-  if(n > 0){
-    // this math seems to accomplish the non-inclusive 
-    // part because it's 1 less than current n
-    sum += n - 1;
-    // then we return the func, with a decremented 
-    // n and the current sum
-    // return sumBelow(n-1, sum);
-  } 
+var sumBelow = function(n) {
 };
 
 // 6. Get the integers in range (x, y).
