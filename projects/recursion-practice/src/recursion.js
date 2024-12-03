@@ -91,7 +91,30 @@ var sumBelow = function(n, newSum=0) {
 
 // 6. Get the integers in range (x, y).
 // Example:  range(2, 9);  // [3, 4, 5, 6, 7, 8]
-var range = function(x, y) {
+var range = function(x, y, array=[]) {
+  // base
+// if(x === y){
+//   return array;
+// }
+// console.log(array)
+  // recursion
+  if(x < y - 1){
+    array.push(x + 1);
+    return range(x + 1, y, array);
+  } else if(x - 1 > y){
+      // 6 > 2? YES
+      // 5 > 2? YES
+      // 4 > 2? YES
+      // 3 > 2? YES
+      // 2 > 2 NOOOOOO <<THIS is why the result is undefined I think and why it wants a return outside the IFs
+    array.push(x - 1);
+    return range(x - 1, y, array);
+  } else {
+    // this took some figuring above wrt why it wasn't returning.
+    // notably with this the base logic above is also moot. 
+    return array;
+  }
+  
 };
 
 // 7. Compute the exponent of a number.
