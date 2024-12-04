@@ -171,10 +171,37 @@ var exponent = function(base, exp) {
 // powerOfTwo(16); // true
 // powerOfTwo(10); // false
 var powerOfTwo = function(n) {
+  // a number is received and we would presumably need to work it backwards to 2
+  if(n === 2 || n === 1){
+    return true;
+  } else if (n < 1){
+    return false;
+  }
+  
+  return powerOfTwo(n / 2);
 };
 
 // 9. Write a function that accepts a string a reverses it.
-var reverse = function(string) {
+var reverse = function(string, newString="", /*index=string.length*/) {
+  console.log(string);
+  console.log(index);
+  // console.log(string.length);
+
+  // the base condition would have to hinge on the exhaustion of a string length.
+  // or the similarity of string lengths once new string is assembled, because we
+  // are not supposed to mutate the original 
+  if(index === 0){
+    return newString;
+  }
+  // access the char at index string.length-1
+  // newString += that char?
+
+  // probably actually using slicing
+  // newString = newString.concat(string[string.length-1]);
+  newString += string.charAt(index-1);
+  console.log(newString);
+  
+  // return reverse(string.slice(-1), newString, index-1);
 };
 
 // 10. Write a function that determines if a string is a palindrome.
