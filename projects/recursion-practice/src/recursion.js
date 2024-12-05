@@ -375,7 +375,22 @@ var rMap = function(array, callback, newArray=[], index=0) {
 // nthFibo(5); // 5
 // nthFibo(7); // 13
 // nthFibo(3); // 2
-var nthFibo = function(n) {
+var nthFibo = function(n, fibSeed=[0, 1]) {
+  // console.log(n);
+  // so this requires you iterate n times on a formula...
+  // check up front for neg return null
+  if(n < 0){
+    return null;
+  } 
+  // very confused why the length -2 is a winning formula check but...
+  if (fibSeed.length-2 === n){
+    return fibSeed[n];
+  }
+  tempSum = fibSeed[fibSeed.length-1] + fibSeed[fibSeed.length-2]
+  // console.log(tempSum);
+  fibSeed.push(tempSum)
+  // console.log(fibSeed);
+  return nthFibo(n, fibSeed);
 };
 
 // 26. Given an array of words, return a new array containing each word capitalized.
