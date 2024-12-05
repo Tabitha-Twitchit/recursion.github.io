@@ -463,7 +463,25 @@ return letterTally(str.slice(1), obj);
 // elements should not be changed.
 // Example: compress([1, 2, 2, 3, 4, 4, 5, 5, 5]) // [1, 2, 3, 4, 5]
 // Example: compress([1, 2, 2, 3, 4, 4, 2, 5, 5, 5, 4, 4]) // [1, 2, 3, 4, 2, 5, 4]
-var compress = function(list) {
+var compress = function(list, index=1, newArray=[]) {
+  // console.log(list);
+  // console.log(list[index-1]);
+  // so it's not asking for a unique set
+
+  // again, these fiddly offsets to align 0 vs 1 indexed things...
+  if(index-1 === list.length){
+    return newArray;
+  }
+  // so we should be able to just compare an element to the one before it
+  if(list[index] === list[index-1]){
+    // if equal, ignore and repeat in either instance
+    return compress(list, index+1, newArray);
+    // and if not equal, push
+  } else if (list[index] !== list[index-1]){
+    newArray.push(list[index -1]);
+    return compress(list, index+1, newArray);
+  }
+
 };
 
 // THIS PROBLEM IS SKIPPABLE!!!!!!!!!!!!!!
@@ -476,20 +494,80 @@ var compress = function(list) {
 // 33. Reduce a series of zeroes to a single 0.
 // minimizeZeroes([2,0,0,0,1,4]) // [2,0,1,4]
 // minimizeZeroes([2,0,0,0,1,0,0,4]) // [2,0,1,0,4]
-var minimizeZeroes = function(array) {
+var minimizeZeroes = function(array, isLastZero=false, newArray=[]) {
+  // seems very similar to the last one...but going to try a dif approach
+  // using a bool flag that gets passed along.
+// console.log(array);
+
+if(array.length === 0){
+  return newArray;
+}
+
+  // on a first 0
+  if(array[0] === 0 && isLastZero === false){
+    isLastZero = true;
+    newArray.push(array[0]);
+  } else if (array[0] !== 0){
+    isLastZero = false;
+    newArray.push(array[0]);
+  }
+  // // on a subsequent 0 (noticing this condition is basically...do nothing!)
+  // } else if (array[0] === 0 && isLastZero === true){
+  //   isLastZero = true;
+  // }
+
+  return minimizeZeroes(array.slice(1), isLastZero, newArray);
 };
 
 // 34. Alternate the numbers in an array between positive and negative regardless of
 // their original sign.  The first number in the index always needs to be positive.
 // alternateSign([2,7,8,3,1,4]) // [2,-7,8,-3,1,-4]
 // alternateSign([-2,-7,8,3,-1,4]) // [2,-7,8,-3,1,-4]
-var alternateSign = function(array) {
+var alternateSign = function(array, newArray=[], index=0, lastIsPos=true) {
+  if(index === array.length){
+    return newArray;
+  }
+
+  // Yeahhhh, this isn't working, it's keeping the negatives negative,
+  // maybe even making everything negative after the first lol?
+  // I think you need to reapproach with a strat of tracking the last one,
+  // either with a bool or index offset.
+  if(index === 0 && array[index] >= 0 ){
+    newArray.push(array[index]);
+  } else if (index === 0 && array[index] < 0 ){
+    newArray.push(array[index] * -1);
+  } 
+  
+  // tthis is soooo ideiotic how you solved this tab...
+  if (index > 0 && lastIsPos === true && array[index] < 0){
+    newArray.push(array[index]);
+    // because it already is negative
+    lastIsPos = false;
+    } else if (index > 0 && lastIsPos === true && array[index] > 0){
+      newArray.push(array[index] * -1);
+      // because we ware turning it negative
+      lastIsPos = false;
+    } else if (index > 0 && lastIsPos === false && array[index] > 0){
+      newArray.push(array[index]);
+      // because it already is
+      lastIsPos = true;
+    } else if (index > 0 && lastIsPos === false && array[index] < 0){
+      // we need to turn this positive
+      newArray.push(array[index] * -1);
+      // and flag it pos
+      lastIsPos = true;
+    }
+  
+  return alternateSign(array, newArray, index + 1, lastIsPos);
 };
 
 // 35. Given a string, return a string with digits converted to their word equivalent.
 // Assume all numbers are single digits (less than 10).
 // numToText("I have 5 dogs and 6 ponies"); // "I have five dogs and six ponies"
 var numToText = function(str) {
+  // iterate thru the string as before, slicing or indexing
+
+  // how to do this without even more idiotic lookup tables...
 };
 
 // *** EXTRA CREDIT ***
