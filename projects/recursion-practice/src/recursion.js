@@ -182,30 +182,40 @@ var powerOfTwo = function(n) {
 };
 
 // 9. Write a function that accepts a string a reverses it.
-var reverse = function(string, newString="", /*index=string.length*/) {
-  console.log(string);
-  console.log(index);
+// interesting to see how convoluted a default param you can write!
+var reverse = function(string, newString="", index=string.length) {
+  // console.log(string);
+  // console.log(index);
   // console.log(string.length);
-
+  
   // the base condition would have to hinge on the exhaustion of a string length.
-  // or the similarity of string lengths once new string is assembled, because we
-  // are not supposed to mutate the original 
-  if(index === 0){
+  // or the similarity of string lengths, or in this case an alternate index var
+  if(index === -1){
     return newString;
   }
-  // access the char at index string.length-1
-  // newString += that char?
-
-  // probably actually using slicing
-  // newString = newString.concat(string[string.length-1]);
-  newString += string.charAt(index-1);
-  console.log(newString);
   
-  // return reverse(string.slice(-1), newString, index-1);
+  newString += string.charAt(index);
+  // console.log(newString);
+  // we don't use slice here because we don't need it for indexing because we have 
+  // the index var, and including it sort of doubles or trips up the count. 
+  return reverse(string, newString, index -1);
 };
 
 // 10. Write a function that determines if a string is a palindrome.
-var palindrome = function(string) {
+var palindrome = function(string, newString="", index=string.length) {
+  // do the same with all lowercase applied then check for equality.
+
+  // lol this is so ridiculous, but easier to figure out than checking each char rn?
+  // I guess you could maybe also do this once at the beginning of each func call and not tie to if?
+  if(index === -1 && string.toLowerCase().replaceAll(" ", "") === newString.toLowerCase().replaceAll(" ", "")){
+    return true;
+  } else if (index === -1 && string.toLowerCase() !== newString.toLowerCase()){
+    return false;
+  }
+  
+  newString += string.charAt(index);
+  // console.log(newString);
+  return palindrome(string, newString, index -1);
 };
 
 // THIS PROBLEM IS SKIPPABLE!!!!!!!!!!!!!!
@@ -220,7 +230,18 @@ var palindrome = function(string) {
 // 12. Write a function that multiplies two numbers without using the * operator  or
 // JavaScript's Math object.
 // ATTENTION DO NOT LEAVE COMMENTS IN THIS FUNCTION. The test is looking for any ('/').
-var multiply = function(x, y) {
+
+// needs to accomodate negative nums...starts this on line 241, returns a negative product
+var multiply = function(x, y, product=0) {
+  if(y === 0){
+    return product;
+  } else if (y > 0){
+  product += x;
+  return multiply(x, y-1, product);
+  } else if (y < 0){
+    product += -x;
+  return multiply(x, y + 1, product);
+  }
 };
 
 // THIS PROBLEM IS SKIPPABLE!!!!!!!!!!!!!!
@@ -243,7 +264,19 @@ var multiply = function(x, y) {
 // compareStr('house', 'houses') // false
 // compareStr('', '') // true
 // compareStr('tomato', 'tomato') // true
-var compareStr = function(str1, str2) {
+var compareStr = function(str1, str2, index=0) {
+  if(str1.length === str2.length && index === str1.length){
+    return true;
+  }
+  // glrg, constraint here is it actually doesn't want this preemptive check...
+  // } else if (str1.length !== str2.length){
+  //   return false;
+  if(str1.charAt(index) === str2.charAt(index)){
+    return compareStr(str1, str2, index+1);
+  } else {
+    return false;
+  }
+
 };
 
 // 16. Write a function that accepts a string and creates an array where each letter
