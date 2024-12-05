@@ -437,7 +437,25 @@ var capitalizeFirst = function(array, newArray=[]) {
 
 // 30. Given a string, return an object containing tallies of each letter.
 // letterTally('potato'); // {'p':1, 'o':2, 't':2, 'a':1}
-var letterTally = function(str, obj) {
+var letterTally = function(str, obj={}) {
+// base if the string length is 0 return the obj
+if(str.length === 0){
+  return obj;
+}
+// made this to just make the syntax clearer...it doesn't pass forward, is disposable.
+let tempChar = str[0];
+// console.log(tempChar); 
+// if the obj does not have a key corresponding to the current string char[0]
+  if(!obj[tempChar]){
+  // initialize it with value of 1
+  obj[tempChar] = 1;
+} else {
+  // else increment it
+  obj[tempChar]++;
+}
+// return func the sliced string 1 and the obj
+return letterTally(str.slice(1), obj);
+
 };
 
 // 31. Eliminate consecutive duplicates in a list.  If the list contains repeated
