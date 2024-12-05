@@ -303,18 +303,40 @@ var reverseArr = function (array, newArray=[]) {
 // 18. Create a new array with a given value and length.
 // buildList(0,5) // [0,0,0,0,0]
 // buildList(7,3) // [7,7,7]
-var buildList = function(value, length) {
+var buildList = function(value, length, newArray=[]) {
+  if (length === 0){
+    return newArray;
+  }
+  newArray.push(value);
+  return buildList(value, length-1, newArray);
 };
 
 // 19. Count the occurence of a value inside a list.
 // countOccurrence([2,7,4,4,1,4], 4) // 3
 // countOccurrence([2,'banana',4,4,1,'banana'], 'banana') // 2
-var countOccurrence = function(array, value) {
+var countOccurrence = function(array, value, counter=0) {
+  if(array.length === 0){
+    return counter;
+  }
+
+  if(array[0] === value){
+    counter++
+  }
+  
+  return countOccurrence(array.slice(1), value, counter);
 };
 
 // 20. Write a recursive version of map.
 // rMap([1,2,3], timesTwo); // [2,4,6]
-var rMap = function(array, callback) {
+var rMap = function(array, callback, newArray=[], index=0) {
+  // console.log(callback);
+  if(index === array.length){
+    return newArray;
+  }
+
+  newArray.push(callback(array[index]));
+  // interestingly, this taught me you can't index++ in an argument...
+  return rMap (array, callback, newArray, index+1);
 };
 
 // THIS PROBLEM IS SKIPPABLE!!!!!!!!!!!!!!
