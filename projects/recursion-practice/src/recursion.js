@@ -281,11 +281,23 @@ var compareStr = function(str1, str2, index=0) {
 
 // 16. Write a function that accepts a string and creates an array where each letter
 // occupies an index of the array.
-var createArray = function(str){
+var createArray = function(str, outputArray=[], index=0){
+  if(outputArray.length === str.length){
+    return outputArray;
+  }
+
+  outputArray.push(str.charAt(index))
+  return createArray(str, outputArray, index+1)
 };
 
 // 17. Reverse the order of an array
-var reverseArr = function (array) {
+var reverseArr = function (array, newArray=[]) {
+  // assuming this doesn't care if it's the same array, should be easy...
+  if(array.length === 0){
+    return newArray;
+  }
+  newArray.unshift(array[0]);
+  return reverseArr(array.slice(1), newArray);
 };
 
 // 18. Create a new array with a given value and length.
